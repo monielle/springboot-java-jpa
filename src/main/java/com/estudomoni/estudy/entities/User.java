@@ -3,6 +3,8 @@ package com.estudomoni.estudy.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -15,8 +17,15 @@ public class User implements Serializable {
     private Long id;
     private String name;
     private String email;
+
     private String phone;
     private String password;
+
+
+    @OneToMany(mappedBy = "client")
+    //Indica a associação de 1 cliente pode ter varios, muitos pedidos. Instancio essa coleção e crio apenas get.
+    private List<Order> orders = new ArrayList<>();
+
 
 
     public User(){
@@ -71,6 +80,9 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
